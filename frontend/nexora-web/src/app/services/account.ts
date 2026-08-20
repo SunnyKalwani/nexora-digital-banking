@@ -35,4 +35,8 @@ export class AccountService {
   getAccounts(): Account[]{
     return this.accounts;
   }
+
+  getAccountById(id:number): Account|undefined{
+    return this.accounts.find(account => account.id === id);
+  }
 }

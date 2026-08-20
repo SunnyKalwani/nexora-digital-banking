@@ -16,6 +16,8 @@
 
     <section class="accounts-list">
         @for (account of accounts; track account.id) {
+
+        <a class="account-link" [routerLink]="['/accounts',account.id]">
         <article class="account-row">
             <div class="account-info">
                 <p class="account-type">{{account.type}}</p>
@@ -29,6 +31,7 @@
 
 
         </article>
+        </a>
         }
 
     </section>

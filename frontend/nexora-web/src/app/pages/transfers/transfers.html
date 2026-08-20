@@ -1,0 +1,111 @@
+<main class="transfer-page">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">NEXORA</p>
+            <h1>Transfer Money</h1>
+            <p>Move money securely between your accounts.</p>
+        </div>
+
+        <a routerLink="/dashboard" class="back-link"> &larr; back to Dashboard</a>
+    </header>
+
+    <section class="transfer-card">
+        <form [formGroup]="transferForm" (ngSubmit)="submitTransfer()">
+
+            <div class="field">
+                <label for="fromAccount"> From Account </label>
+                <select id="fromAccount" formControlName="fromAccountId">
+                    <option [ngValue]="null">Select an account</option>
+
+                    @for(account of accounts; track account.id){
+                    <option [ngValue]="account.id">
+                        {{account.type}}
+                        -
+                        {{account.balance | currency: 'CAD'}}
+                    </option>
+                    }
+                </select>
+
+                @if (transferForm.controls.fromAccountId.touched &&
+                transferForm.controls.fromAccountId.invalid) {
+                <small class="error">
+                    Please select a source account.
+                </small>
+                }
+            </div>
+
+            <div class="field">
+                <label for="toAccount">To Account</label>
+                <select id="toAccount" formControlName="toAccountId">
+                    <option [ngValue]="null">Select an account</option>
+
+                    @for(account of accounts; track account.id){
+                    <option [ngValue]="account.id">
+                        {{account.type}}
+                        -
+                        {{account.details}}
+                    </option>
+                    }
+                </select>
+
+                @if (transferForm.controls.toAccountId.touched &&
+                transferForm.controls.toAccountId.invalid) {
+                <small class="error">
+                    Please select a destination account.
+                </small>
+                }
+            </div>
+
+            <div class="field">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" formControlName="amount" />
+                @if (transferForm.controls.amount.touched && transferForm.controls.amount.invalid) {
+                <small class="error">
+                    Enter an amount greater than $0
+                </small>
+                }
+
+            </div>
+
+            @if (transferError) {
+            <div class="business-error">
+                {{transferError}}
+            </div>
+            }
+
+            <button type="submit">Continue</button>
+        </form>
+
+        @if (showConfirmation && selectedFromAccount && selectedToAccount) {
+        <section class="confirmation-card">
+            <p class="eyebrow">
+                REVIEW TRANSFER
+            </p>
+            <h2>Confirm your transfer
+            </h2>
+            <div class="confirmation-row">
+                <span>From</span>
+                <strong>{{selectedFromAccount.type}}</strong>
+            </div>
+            <div class="confirmation-row">
+                <span>To</span>
+                <strong>{{selectedToAccount.type}}</strong>
+            </div>
+            <div class="confirmation-row">
+                <span>Amount</span>
+                <strong>{{transferAmount | currency: 'CAD':'symbol':'1.2-2'}}</strong>
+            </div>
+
+            <div class="confirmation-action">
+                <button type="button" class="secondary-button" (click)="cancelConfirmation()">
+                    Edit Transfer
+                </button>
+                <button type="button" (click)="confirmTransfer()">
+                    Confirm Transfer
+                </button>
+            </div>
+            
+        </section>
+        }
+    </section>
+</main>

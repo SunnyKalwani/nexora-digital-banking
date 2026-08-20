@@ -1,0 +1,123 @@
+.account-detail-page {
+  min-height: 100vh;
+  padding: 3rem;
+  background: #f5f7fa;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.account-card{
+    max-width: 700px;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+    h1{
+        margin: 0.5rem 0;
+    }
+}
+
+.eyebrow{
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.details{
+    margin-bottom: 2rem;
+}
+
+.balance{
+    display: flex;
+    flex-direction: column;
+
+    span{
+        margin-bottom: 0.4rem;
+    }
+
+    strong{
+        font-size: 2rem;
+    }
+}
+
+.not-found{
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+}
+
+.transaction-section{
+    max-width: 700px;
+    margin-top: 2rem;
+}
+
+.section-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h2{
+        margin: 0;
+    }
+    span{
+        font-size: 0.9rem;
+    }
+}
+
+.transactions-list{
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.transaction-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+
+    &:last-child{
+        border-bottom: none;
+    }
+}
+
+.transaction-info{
+    display: flex;
+    flex-direction: column;
+
+    strong{
+        margin-bottom: 0.35rem;
+    }
+    span{
+        font-size: 0.85rem;
+    }
+}
+
+.transaction-amount{
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.credit{
+    color: #15803d;
+}
+
+.debit{
+    color: #b91c1c;
+}
+
+.empty-state{
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+}
