@@ -1,0 +1,43 @@
+<main class="dashboard">
+    <aside class="sidebar">
+        <h2>NEXORA</h2>
+
+        <nav>
+            <a href="/dashboard">Overview</a>
+            <a routerLink="/accounts">Accounts</a>
+            <a href="/transfers">Transfers</a>
+            <a href="/bills">Bills</a>
+            <a href="/loans">Loans</a>
+        </nav>
+    </aside>
+
+
+
+    <section class="content">
+
+        <div class="page-header">
+            <p class="eyebrow">Overview</p>
+            <h1>Good afternoon, Sunny</h1>
+            <p>Here’s your financial overview.</p>
+        </div>
+
+        <section class="balance-section">
+            <p>Total balance</p>
+            <h2>{{totalBalance | currency: 'CAD':'symbol':'1.2-2'}}</h2>
+        </section>
+
+        <section class="accounts-grid">
+
+            @for(account of accounts; track account.id){
+            <article class="account-card">
+                <p>{{account.type}}</p>
+                <h3>{{account.balance | currency: 'CAD':'symbol':'1.2-2'}}</h3>
+                <span>{{account.details}}</span>
+            </article>
+
+
+            }
+        </section>
+    </section>
+
+</main>

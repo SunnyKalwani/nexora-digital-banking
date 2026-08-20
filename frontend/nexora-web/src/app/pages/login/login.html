@@ -1,0 +1,23 @@
+<main class="login-page">
+    <section class="login-card">
+        <div class="brand">
+            <h1>NEXORA</h1>
+            <p>Intelligent Digital Banking</p>
+        </div>
+        <form (submit)="signIn(); $event.preventDefault()">
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="you@example.com"/>
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit">
+                Sign In
+            </button>
+        </form>
+
+    </section>
+
+</main>
