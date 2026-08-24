@@ -39,4 +39,34 @@ export class AccountService {
   getAccountById(id:number): Account|undefined{
     return this.accounts.find(account => account.id === id);
   }
+
+  debitAccount(accountId: number, amount: number): boolean{
+    const account = this.getAccountById(accountId);
+
+    if(!account){
+      return false;
+    }
+    if(amount<=0 || account.balance<amount){
+      return false;
+    }
+
+    account.balance -= amount;
+    return true;
+  }
+
+  creditAccount(accountId:number, amount: number): boolean{
+    const account = this.getAccountById(accountId);
+
+    if(!account){
+      return false;
+    }
+
+    if(amount<= 0){
+      return false;
+    }
+
+    account.balance += amount;
+
+    return true;
+  }
 }

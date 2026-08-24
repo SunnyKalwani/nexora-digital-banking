@@ -104,7 +104,33 @@
                     Confirm Transfer
                 </button>
             </div>
-            
+
+        </section>
+        }
+
+        @if(transferSuccess){
+        <section class="success-card">
+            <p class="success-label">
+                TRANSFER COMPLETE
+            </p>
+
+            <h2>Your transfer was successful</h2>
+            <p>Your money has been moved successfully.</p>
+
+            <div class="receipt-row">
+                <span>
+                    Confirmation
+                </span>
+
+                <strong>{{confirmationNumber}}</strong>
+            </div>
+
+            <div class="receipt-row">
+                <span>Amount</span>
+                <strong>{{ completedAmount | currency: 'CAD':'symbol':'1.2-2'}}</strong>
+            </div>
+
+            <a routerLink="/dashboard" class="dashboard-link">Return to Dashboard</a>
         </section>
         }
     </section>
