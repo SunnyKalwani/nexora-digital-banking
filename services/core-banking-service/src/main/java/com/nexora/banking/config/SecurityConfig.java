@@ -20,7 +20,9 @@ public class SecurityConfig {
                     "/api/v1/system/status",
                     "/actuator/health",
                     "/api/v1/accounts",
-                    "/api/v1/accounts/**"
+                    "/api/v1/accounts/**",
+                    "/api/v1/transactions",
+                    "/api/v1/transactions/**"
                 ).permitAll()
 
                 .anyRequest().authenticated()
