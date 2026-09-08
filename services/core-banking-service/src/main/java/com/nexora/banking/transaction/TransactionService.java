@@ -5,6 +5,10 @@ import com.nexora.banking.account.AccountRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +26,17 @@ public class TransactionService {
         this.accountRepository = accountRepository;
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
+    public Page<Transaction> getAllTransactions(int page, int size) {
+       
+        Pageable pageable = PageRequest.of(page,size);
+       
+        return transactionRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+
+    public List<Transaction> getTransactionsByAccountId(Long accountId) {
+        return transactionRepository.findByFromAccountIdOrToAccountIdOrderByCreatedAtDesc(
+                accountId,
+                accountId);
     }
 
     @Transactional
@@ -56,7 +69,8 @@ public class TransactionService {
                 fromAccountId,
                 toAccountId,
                 amount,
-                "Transfer",
+                TransactionType.TRANSFER,
+                TransactionStatus.COMPLETED,
                 LocalDateTime.now());
 
         return transactionRepository.save(transaction);

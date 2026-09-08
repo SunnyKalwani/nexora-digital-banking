@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +24,11 @@ public class Transaction {
 
     private BigDecimal amount;
 
-    private String transactionType;
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
 
     private LocalDateTime createdAt;
 
@@ -34,12 +40,14 @@ public class Transaction {
             Long fromAccountId,
             Long toAccountId,
             BigDecimal amount,
-            String transactionType,
+            TransactionType transactionType,
+            TransactionStatus status,
             LocalDateTime createdAt) {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.amount = amount;
         this.transactionType = transactionType;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -71,11 +79,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
@@ -85,6 +93,14 @@ public class Transaction {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public TransactionStatus getStatus(){
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status){
+        this.status = status;
     }
 
 }

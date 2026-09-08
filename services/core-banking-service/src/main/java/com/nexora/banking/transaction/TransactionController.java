@@ -3,6 +3,8 @@ package com.nexora.banking.transaction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +20,16 @@ public class TransactionController {
     }
 
     @GetMapping
-    public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+    public Page<Transaction> getAllTransactions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return transactionService.getAllTransactions(page, size);
+    }
+
+    @GetMapping("/account/{accountId}")
+    public List<Transaction> getTransactionsByAccountId(@PathVariable Long accountId) {
+        return transactionService.getTransactionsByAccountId(accountId);
     }
 
     @PostMapping("/transfer")
