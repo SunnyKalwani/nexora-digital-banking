@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AccountService, Account } from '../../services/account';
 
@@ -10,16 +10,27 @@ import { AccountService, Account } from '../../services/account';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {
-  
+export class Dashboard implements OnInit {
+
   private accountService = inject(AccountService);
 
-  accounts: Account[] = this.accountService.getAccounts();
+  accounts: Account[] = [];
 
-  get totalBalance(): number{
+  ngOnInit(): void {
+    this.accountService.loadAccounts().subscribe({
+      next: (accounts) => {
+        this.accounts = accounts;
+        console.log('Accounts loaded from backend:', accounts);
+      },
+      error: (error) => {
+        console.error('Error loading accounts:', error);
+      }
+    });
+  }
+
+  get totalBalance(): number {
     return this.accounts
-    .filter(account => account.type !== 'Credit Card')
-      .reduce((total,account)=> total+ account.balance, 0);
-    
+      .filter(account => account.type !== 'Credit Card')
+      .reduce((total, account) => total + account.balance, 0);
   }
 }

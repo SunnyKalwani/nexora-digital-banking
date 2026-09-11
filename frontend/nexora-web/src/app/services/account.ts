@@ -1,72 +1,63 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap, map } from 'rxjs';
 
 export interface Account {
   id: number;
+
+  // Fields used by the Angular UI
   type: string;
-  balance: number;
   details: string;
+  balance: number;
+
+  // Original backend fields
+  accountNumber?: string;
+  accountType?: string;
+}
+
+interface BackendAccount {
+  id: number;
+  accountNumber: string;
+  accountType: string;
+  balance: number;
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AccountService {
-  private accounts: Account[] = [
-    {
-      id: 1,
-      type: 'Chequing',
-      balance: 4280.2,
-      details: '•••• 4821',
-    },
-    {
-      id: 2,
-      type: 'Savings',
-      balance: 8200.32,
-      details: '•••• 8472',
-    },
-    {
-      id: 3,
-      type: 'Credit Card',
-      balance: 1420.6,
-      details: '$5,000 limit',
-    }
-  ];
 
-  getAccounts(): Account[]{
+  private apiUrl = 'http://localhost:8080/api/v1/accounts';
+
+  private accounts: Account[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  getAccounts(): Account[] {
     return this.accounts;
   }
 
-  getAccountById(id:number): Account|undefined{
+  getAccountById(id: number): Account | undefined {
     return this.accounts.find(account => account.id === id);
   }
 
-  debitAccount(accountId: number, amount: number): boolean{
-    const account = this.getAccountById(accountId);
+  loadAccounts(): Observable<Account[]> {
+    return this.http.get<BackendAccount[]>(this.apiUrl).pipe(
+      map(backendAccounts =>
+        backendAccounts.map(account => ({
+          id: account.id,
+          type: account.accountType,
+          details: account.accountNumber,
+          balance: account.balance,
 
-    if(!account){
-      return false;
-    }
-    if(amount<=0 || account.balance<amount){
-      return false;
-    }
+          accountNumber: account.accountNumber,
+          accountType: account.accountType
+        }))
+      ),
 
-    account.balance -= amount;
-    return true;
-  }
-
-  creditAccount(accountId:number, amount: number): boolean{
-    const account = this.getAccountById(accountId);
-
-    if(!account){
-      return false;
-    }
-
-    if(amount<= 0){
-      return false;
-    }
-
-    account.balance += amount;
-
-    return true;
+      tap(accounts => {
+        this.accounts = accounts;
+      })
+    );
   }
 }

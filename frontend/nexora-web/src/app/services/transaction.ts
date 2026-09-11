@@ -1,92 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-export interface Transaction {
+export interface TransferResponse {
   id: number;
-  accountId: number;
-  description: string;
+  fromAccountId: number;
+  toAccountId: number;
   amount: number;
-  date: string;
-  type: 'credit' | 'debit';
+  transactionType: string;
+  status: string;
+  createdAt: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionService {
-  private transactions: Transaction[] = [
-    {
-      id: 1,
-      accountId: 1,
-      description: 'Loblaws',
-      amount: 82.46,
-      date: '2026-08-19',
-      type: 'debit',
-    },
-    {
-      id: 2,
-      accountId: 1,
-      description: 'Payroll Deposit',
-      amount: 2450.0,
-      date: '2026-08-18',
-      type: 'credit',
-    },
-    {
-      id: 3,
-      accountId: 1,
-      description: 'Netflix',
-      amount: 20.99,
-      date: '2026-08-17',
-      type: 'debit',
-    },
 
-    {
-      id: 4,
-      accountId: 2,
-      description: 'Interest Payment',
-      amount: 18.42,
-      date: '2026-08-19',
-      type: 'credit',
-    },
-    {
-      id: 5,
-      accountId: 2,
-      description: 'Transfer from Chequing',
-      amount: 500.0,
-      date: '2026-08-15',
-      type: 'credit',
-    },
+  private apiUrl = 'http://localhost:8080/api/v1/transactions';
 
-    {
-      id: 6,
-      accountId: 3,
-      description: 'Amazon',
-      amount: 74.29,
-      date: '2026-08-18',
-      type: 'debit',
-    },
-    {
-      id: 7,
-      accountId: 3,
-      description: 'Restaurant',
-      amount: 63.8,
-      date: '2026-08-16',
-      type: 'debit',
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  getTransactionsByAccountId(accountId: number): Transaction[] {
-    return this.transactions.filter((transaction) => transaction.accountId === accountId);
+  transfer(
+    fromAccountId: number,
+    toAccountId: number,
+    amount: number
+  ): Observable<TransferResponse> {
+    return this.http.post<TransferResponse>(
+      `${this.apiUrl}/transfer`,
+      {
+        fromAccountId,
+        toAccountId,
+        amount
+      }
+    );
   }
 
-  addTransaction(transaction: Transaction): void {
-    this.transactions.unshift(transaction);
-  }
-
-  getNextTransactionId(): number {
-    if (this.transactions.length === 0) {
-      return 1;
-    }
-
-    return Math.max(...this.transactions.map((transaction) => transaction.id)) + 1;
+  getTransactionsByAccountId(
+    accountId: number
+  ): Observable<TransferResponse[]> {
+    return this.http.get<TransferResponse[]>(
+      `${this.apiUrl}/account/${accountId}`
+    );
   }
 }
