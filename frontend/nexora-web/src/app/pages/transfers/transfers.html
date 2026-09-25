@@ -19,9 +19,8 @@
 
                     @for(account of accounts; track account.id){
                     <option [ngValue]="account.id">
-                        {{account.type}}
-                        -
-                        {{account.balance | currency: 'CAD'}}
+                        {{ account.type }} • {{ account.details }}
+                        — {{ account.balance | currency:'CAD':'symbol':'1.2-2' }}
                     </option>
                     }
                 </select>
@@ -41,9 +40,8 @@
 
                     @for(account of accounts; track account.id){
                     <option [ngValue]="account.id">
-                        {{account.type}}
-                        -
-                        {{account.details}}
+                        {{ account.type }} • {{ account.details }}
+                        — {{ account.balance | currency:'CAD':'symbol':'1.2-2' }}
                     </option>
                     }
                 </select>

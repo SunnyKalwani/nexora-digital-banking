@@ -121,3 +121,16 @@
     background: white;
     border-radius: 12px;
 }
+
+.transaction-status{
+    display: inline-block;
+    width: fit-content;
+    margin-top: 4px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #e8f5e9;
+    color: #1b5e20;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}

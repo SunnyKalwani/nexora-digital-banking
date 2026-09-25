@@ -175,10 +175,10 @@ export class Transfers implements OnInit {
 
         next: (transaction) => {
 
-          console.log(
-            'Transfer completed:',
-            transaction
-          );
+          // console.log(
+          //   'Transfer completed:',
+          //   transaction
+          // );
 
           this.confirmationNumber =
             'NX-' + transaction.id;

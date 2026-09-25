@@ -5,9 +5,12 @@
         <nav>
             <a routerLink="/dashboard">Overview</a>
             <a routerLink="/accounts">Accounts</a>
-            <a href="/transfers">Transfers</a>
-            <a href="/bills">Bills</a>
-            <a href="/loans">Loans</a>
+            <a routerLink="/transfers">Transfers</a>
+            <a routerLink="/bills">Bills</a>
+            <a routerLink="/loans">Loans</a>
+            <button type="button" (click)="logout()">
+                Logout
+            </button>
         </nav>
     </aside>
 

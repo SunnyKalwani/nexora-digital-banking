@@ -14,6 +14,6 @@ export class App {
   description = "Secure. Simple. Built for what's next.";
 
   enterApp(){
-    console.log('entering nexora banking platform');
+    // console.log('entering nexora banking platform');
   }
 }

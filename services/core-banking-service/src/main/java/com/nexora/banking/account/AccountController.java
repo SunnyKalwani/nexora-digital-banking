@@ -2,6 +2,7 @@ package com.nexora.banking.account;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.security.Principal;
 
 import java.util.List;
 
@@ -15,8 +16,9 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
-        return accountService.getAllAccounts();
+    public List<Account> getAllAccounts(Principal principal) {
+        String email = principal.getName();
+        return accountService.getAccountsByUserEmail(email);
     }
 
     @GetMapping("/{id}")

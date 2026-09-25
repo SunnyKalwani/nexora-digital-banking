@@ -28,7 +28,7 @@ export class Accounts implements OnInit {
       next: (accounts) => {
         this.accounts = accounts;
 
-        console.log('Accounts page loaded:', this.accounts);
+        // console.log('Accounts page loaded:', this.accounts);
 
         this.cdr.detectChanges();
       },

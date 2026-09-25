@@ -1,23 +1,50 @@
 <main class="login-page">
     <section class="login-card">
+
         <div class="brand">
             <h1>NEXORA</h1>
             <p>Intelligent Digital Banking</p>
         </div>
+
         <form (submit)="signIn(); $event.preventDefault()">
+
             <div class="field">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="you@example.com"/>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    [(ngModel)]="email"
+                    placeholder="you@example.com"
+                    required
+                />
             </div>
+
             <div class="field">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password">
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    [(ngModel)]="password"
+                    placeholder="Enter your password"
+                    required
+                />
             </div>
+
+            @if (errorMessage) {
+                <p class="error-message">
+                    {{ errorMessage }}
+                </p>
+            }
+
             <button type="submit">
                 Sign In
             </button>
+
         </form>
 
     </section>
-
 </main>

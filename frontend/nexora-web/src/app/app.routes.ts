@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
 import { Dashboard } from './pages/dashboard/dashboard';
-import { Accounts} from './pages/accounts/accounts';
+import { Accounts } from './pages/accounts/accounts';
 import { AccountDetail } from './pages/account-detail/account-detail';
 import { Transfers } from './pages/transfers/transfers';
+import { authGuard } from './services/auth-guard';
+import { Bills } from './pages/bills/bills';
+import { Loans } from './pages/loans/loans';
 
 export const routes: Routes = [
   {
@@ -17,18 +20,32 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    canActivate: [authGuard]
   },
   {
     path: 'accounts',
-    component: Accounts
+    component: Accounts,
+    canActivate: [authGuard]
   },
   {
     path: 'accounts/:id',
-    component: AccountDetail
+    component: AccountDetail,
+    canActivate: [authGuard]
   },
   {
     path: 'transfers',
-    component: Transfers
-  }
+    component: Transfers,
+    canActivate: [authGuard]
+  },
+  {
+  path: 'bills',
+  component: Bills,
+  canActivate: [authGuard]
+},
+{
+  path: 'loans',
+  component: Loans,
+  canActivate: [authGuard]
+}
 ];

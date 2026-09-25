@@ -5,6 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import com.nexora.banking.user.User;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 
@@ -18,6 +22,10 @@ public class Account {
     private String accountNumber;
     private String accountType;
     private BigDecimal balance;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore 
+    private User user;
 
     public Account() {
 
@@ -55,5 +63,13 @@ public class Account {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
