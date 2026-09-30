@@ -29,8 +29,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account createAccount(@RequestBody Account account) {
-        return accountService.createAccount(account);
+    public Account createAccount(@RequestBody Account account, Principal principal) {
+        return accountService.createAccount(account, principal.getName());
     }
 
     @PutMapping("/{id}")
