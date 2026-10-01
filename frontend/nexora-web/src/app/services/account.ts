@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Account {
   id: number;
@@ -27,7 +28,7 @@ interface BackendAccount {
 })
 export class AccountService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/accounts';
+  private apiUrl = `${environment.apiUrl}/accounts`;
 
   private accounts: Account[] = [];
 
